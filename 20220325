@@ -1,0 +1,46 @@
+--2022년3월25일
+
+--to_char:문자형식으로 변환, 숫자 날짜 데이터
+
+--to_number:문자데이터를 숫자형식으로 변환
+
+--to_date:문자데이터를 날짜형식으로 변환
+
+select '1,300' + '1,500' from dual;
+
+--to_number(변환할 대상, 숫자형식)
+
+select to_number('1,300', '999,999') + to_number('1,500', '999,999') from dual;
+
+
+
+--to_date(변환할 대상, 날짜 형식)
+-- 변환할 날짜의 갯수와 변환할 대상에 갯수가 같아야 변환이됨
+--yy:현재 rr:과거(1900년대)
+
+select to_date('20220325','yyyy/mm/dd') from dual;
+
+select to_date('220325','yy/mm/dd') from dual;
+
+select to_date('500325','yy/mm/dd') from dual; --2050년
+
+select to_date('500325','rr/mm/dd') from dual; --1950년
+
+
+--본인주민번호 전체를 이용하여 만나이를 계산하시오
+1.주민번호전체-> 생년월일 추출 :substr('050207-3000000')->050207
+2.추출된 문자 데이터 '050207'을 날짜데이터 변환:to_date('050207','yy/mm/dd')
+3.months_between(sysdate,생년월일 구한 것) : 개월수
+4.개월수 /12후 정수로 변환:trnuc(개월수/12)
+5.'만'||결과값||'세'
+
+select '만'||trunc(months_between(sysdate,to_date(substr('050207-3000000',1,6),'yy/mm/dd'))/12)||'세' as 만나이 from dual;
+
+
+desc table emp;select * from emp;
+
+select * from emp;
+desc EMP;
+
+select empno, ename, nvl(comm, 0) from emp;
+select ename, sal+nvl(comm, 0) as 월급 from emp;
