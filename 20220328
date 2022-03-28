@@ -1,0 +1,98 @@
+--2022년 3월28일
+
+--decord(기준 컬럼명
+
+--조건1 참인경우
+--조건2 참인경우
+--조건3 참인경우
+--그밖에 모든 결과값)
+
+SELECT EMPNO, ENAME, DEPTNO,
+   DECODE(DEPTNO,
+      10, '총무부'
+      , 20, '영업부'
+      , 30, '마케팅부'
+      , '기타부서') AS 부서명
+      FROM EMP;
+              
+SELECT EMPNO, ENAME, DEPTNO,
+   CASE DEPTNO
+       WHEN 10 THEN '총무부'
+       WHEN 20 THEN '영업부'
+    ELSE '마케팅부'
+    END AS 부서명
+    FROM EMP;
+    
+SELECT ENAME, JOB, SAL,
+   DECORD(JOB,
+         'MANAGER', SAL*1.1,
+         'SALESMAN', SAL*1.05,
+         'ANALYST', SAL*1,
+         SAL*1.03) AS UPSAL
+         FROM EMP;
+         
+select ename,job,sal,
+ case job when 
+ 'manager' then sal*1.1 
+ when 'salesman' then sal*1.05 
+ when 'analyst' then sal else sal*1.03 
+ end as upsal
+ from emp;
+ 
+ SELECT * FROM EMP;
+ 
+ SELECT SUM(ALL COMM) FROM EMP;
+ 
+ 직책별(MGR) 급여(SAL)의 합계
+ 
+ SELECT MGR, SUM(SAL) FROM EMP;
+ 
+ SELECT JOB, SUM(SAL+NVL(COMM,0)) 급여 FROM EMP
+ GROUP BY JOB;
+ 
+ SELECT COUNT(*) FROM EMP
+ WHERE DEPTNO=30;
+ 
+ --부서별로 직원수를 카운트하시오.
+ 
+ SELECT DEPTNO, COUNT(*) FROM EMP GROUP BY DEPTNO ORDER BY DEPTNO;
+ 
+ SELECT MIN(MGR), MAX(MGR) FROM EMP;
+ 
+ SELECT AVG(MGR) FROM EMP;
+ 
+ SELECT AVG(MGR) FROM EMP WHERE MGR IS NOT NULL
+ 
+ SELECT COUNT(COMM) FROM EMP;
+ 
+1. 부서별(DEPTNO) 평균 급여(SAL+COMM)를 구하시오.
+
+ SELECT DEPTNO 부서번호, TRUNC(AVG(SAL+NVL(COMM,0))) 평균급여 FROM EMP
+ GROUP BY DEPTNO
+ ORDER BY DEPTNO;
+
+2. 부서별(DEPTNO), 직책별(JOB) 평균급여(SAL+COMM)를 구하시오.
+
+ SELECT DEPTNO 부서번호, JOB 직책, TRUNC(AVG(SAL+NVL(COMM,0))) 평균급어 FROM EMP
+ GROUP BY DEPTNO, JOB
+ ORDER BY DEPTNO;
+ 
+3. 부서별(DEPTNO) 최고급여를 구하시오.
+
+ SELECT DEPTNO, MAX(SAL) FROM EMP GROUP BY DEPTNO ORDER BY DEPTNO;
+
+4. 부서별(DEPTNO) 최소급여를 구하시오.
+ 
+ SELECT DEPTNO, MIN(SAL) FROM EMP GROUP BY DEPTNO ORDER BY DEPTNO;
+
+5. 급여가(SAL)가 3000이하인 직원들의 평균급여를 구한 후 AVG(SAL) 값이 2000이상인 부서와 직책을 출력하시오.
+
+ 1) SAL<=3000 인 직원(DEPTNO, JOB)을 조회
+ 2) 부서별, 직책별 평균급여 AVG(SAL)를 구한다.
+ 3) 결과 중 AVG(SAL) >=2000 인 경우만 화면에 출력 => 검색된 결과에 조건을 걸어 추리는 HAVING
+ 
+ SELECT DEPTNO 부서, JOB 직책, AVG(SAL) 평균급여 FROM EMP
+ WHERE SAL<=3000
+ GROUP BY DEPTNO, JOB
+ HAVING AVG(SAL) >=2000
+ ORDER BY DEPTNO;
