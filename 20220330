@@ -1,0 +1,24 @@
+--3월30일
+ 
+ SELECT * FROM EMPLOYEES;
+ SELECT * FROM DEPARTMENTS;
+ 
+ --연봉(SALARY)이 12000 이상되는 직원들의 LAST_NAME 및 연봉을 조회하시오.
+ 
+ SELECT  SALARY, LAST_NAME FROM EMPLOYEES;
+ 
+ --사원번호가(EMPLOYEE_ID) 176인 사람의 LAST_NAME 과 부서 번호(DEPARTMENT_ID)를 조회하시오
+ 
+ SELECT LAST_NAME, DEPARTMENT_ID
+ WHERE EMPLOYEE_ID = 176;
+ 
+ --연봉이 5000에서 12000의 범위 이외인 사람들의 LAST_NAME 및 연봉을 조회하시오.
+ 
+ SELECT SALARY LAST_NAME FROM EMPLOYEES;
+ 
+ --2002/02/20일부터 2008/05/01사이에 고용된 사원들의 LAST_NAME 사번, 고용일자를 조회
+ 
+ SELECT 
+ 
+ --20번 및 50번 부서에서 근무하는 모든 사원들의 LAST_NAME 및 부서번호를 오름차순으로 조회
+ --LAST_NAME의 알파벳순으로 정렬
